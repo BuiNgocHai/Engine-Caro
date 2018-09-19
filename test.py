@@ -138,7 +138,7 @@ def score_of_col(board,col):
 def score_of_col_one(board,col,y,x):
     '''
     trả lại điểm số của column trong y,x theo 4 hướng,
-    key: điểm số khối đơn vị đó -> chỉ ktra 5 khôi thay vì toàn bộ
+    key: điểm số khối đơn vị đó -> chỉ ktra 5 khối thay vì toàn bộ
     '''
     
     scores = {(0,1):[],(-1,1):[],(1,0):[],(1,1):[]}
@@ -153,7 +153,7 @@ def score_of_col_one(board,col,y,x):
     
     return score_ready(scores)
     
-def possible_moves(board):
+def possible_moves(board):  
     '''
     khởi tạo danh sách tọa độ có thể có tại danh giới các nơi đã đánh phạm vi 3 đơn vị
     '''
@@ -294,7 +294,7 @@ def click(x,y):
     if not is_in(board, y, x):
         return
     
-    if board[y][x] == ' ' and win == False:
+    if board[y][x] == ' ':
         
         draw_stone(x,y,colors['b'])
         board[y][x]='b'
