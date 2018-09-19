@@ -6,11 +6,17 @@ Chươnng trình game caro sử dụng  Turtle trong python và engine AI dựa 
 
 - Phân tích: 
    +Trò chơi có thể biếu diễn như một cây gốc, những nút, những lá và nhánh:
+   
    	. Gốc là trạng thái ban đầu của trò chơi. Với mỗi trò chơi cụ thể thì trạng thái( ở mỗi điểm) lại đưuọc đặc trung bởi những     	thông số riêng
+	
 	. Các nút(Node) của cây thể hiện tình trạng hiện tại của trò chơi, gồm nút cha và nút con.
+	
 	. Các nhánh nối giữa các nút thể hiện nước đi, tức là cho biết từ một tình huống của trò chơi chuyển sang tình huống khác thông 	qua chỉ một nước đi nào đó.
+	
 	. Các lá hay còn gọi là nút lá, thể hiện thời điểm kết thúc khi mà kết quả của trờ chơi đã rõ.
+	
 	. Độ sâu của cây: Số tầng của cây
+	
    + Mỗi vị trí kết thúc trò chơi(nút lá) sẽ gán một trọng số. vd: 1 win, 0 hòa, -1 lose. Tại mỗi nút cũng có một trọng số tương ứng được xác định bằng một cách nào đó. Dựa vào cây trò chơi này, ta có thể tìm nước đi tốt để giành chiến thắng.
 	
    + Cứ sau mỗi nước đi số ô trống sẽ giảm. Vì vậy việc tìm kiếm nước đi tiếp theo là việc tìm kiếm trong không gian các ô trống còn lại, sau mỗi lượt đi thì không gian tìm kiếm sẽ giảm dần.
