@@ -229,6 +229,8 @@ def winning_situation(sumcol):
     '''
     trả lại tình huống chiến thắng dạng như:
     {0: {}, 1: {(0, 1): 4, (-1, 1): 3, (1, 0): 4, (1, 1): 4}, 2: {}, 3: {}, 4: {}, 5: {}, -1: {}}
+    1-5 lưu điểm có độ nguy hiểm từ thấp đến cao,
+    -1 là rơi vào trạng thái tồi, cần phòng thủ
     '''
     
     if 1 in sumcol[5].values():
