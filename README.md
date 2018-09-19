@@ -24,9 +24,9 @@ Từ các giá trị này người chơi sẽ lựa chọn cho mình nước đi
 
 - Vì sự bùng nổ cây trò chơi trong minimax nên ta sẽ bỏ những nút không tối ưu bằng cách cắt tỉa alpha-beta.
 
-- Tư tưởng: + Nếu một nhánh tìm kiếm nào đó không th? cải thiện ??i với giá trị mà chúng ta đã có, thì không cần xét đến hàm đó n?a -> tiết kiệm chi phí thời gian, bộ nhờ cho cây tìm ki?m
-		 + Dùng hai c?n Anpha và Beta ?? so sánh và lo?i b? các tr??ng h?p s? không c?n xét ??n trong thu?t toán minimax.	
+- Tư tưởng: + Nếu một nhánh tìm kiếm nào đó không thể cải thiện với giá trị mà chúng ta đã có, thì không cần xét đến hàm đó nữa -> tiết kiệm chi phí thời gian, bộ nhớ cho cây tìm kiếm
+		 + Dùng hai cận Anpha và Beta để so sánh và loại bỏ các trường hợp sẽ không cần xét đến trong thuật toán minimax.	
 
-- Mô t?: + Anpha lưu nướcc đi tốt nhất của máy, Beta lưu giá trị tốt nhất của Người chơi
+- Mô tả: + Anpha lưu nướcc đi tốt nhất của máy, Beta lưu giá trị tốt nhất của Người chơi
 	   + Nếu bất cứ khi nào anpha >= beta, thì người chơi chắc chắn sẽ chọn nước đi tốt nhất cho họ và cưỡng bức nước đi tồi hơn anpha cho máy, vì vậy mà không cần xét thêm bước nào nữa.
 
