@@ -1,8 +1,6 @@
 import turtle
 import random
 import time
-# import os
-# os.chdir('E:\\Documents\\OneDrive\\UT\\CSC180\\project2\\stringmethod')
 
 global move_history
 
@@ -37,13 +35,11 @@ def is_win(board):
     return 'Continue playing'
 
 ##AI Engine
-'''
-need to adapt to global board
-'''
+
 def march(board,y,x,dy,dx,length):
     '''
     tìm vị trí xa nhất trong dy,dx trong khoảng length
-    go as far as posible in direction dy, dx for length
+
     '''
     yf = y + length*dy 
     xf = x + length*dx
@@ -56,13 +52,9 @@ def march(board,y,x,dy,dx,length):
     
 def score_ready(scorecol):
     '''
-    Khởi tạo hệ thống điểm chuyển
-    transform this form:
-    {(0, 1): [0, 0, 0, 0, 0],(-1, 1): [0, 1, 1, 1, 1],(1, 0): [0, 0, -1, -1, -1],(1, 1): [0, 0, 0, 0, 0]}
-    to this form
-    {0: {}, 1: {(0, 1): 4, (-1, 1): 3, (1, 0): 4, (1, 1): 4}, 2: {}, 3: {}, 4: {}, 5: {},-1: {}}
+    Khởi tạo hệ thống điểm
+
     '''
-    print(scorecol)
     sumcol = {0: {},1: {},2: {},3: {},4: {},5: {},-1: {}}
     for key in scorecol:
         for score in scorecol[key]:
@@ -75,7 +67,7 @@ def score_ready(scorecol):
     
 def sum_sumcol_values(sumcol):
     '''
-    merge the scores of each directions.
+    hợp nhất điểm của mỗi hướng
     '''
     
     for key in sumcol:
@@ -85,9 +77,6 @@ def sum_sumcol_values(sumcol):
             sumcol[key] = sum(sumcol[key].values())
             
 def score_of_list(lis,col):
-    '''
-    take in a 5 unit list, show a number representing what it is like
-    '''
     
     blank = lis.count(' ')
     filled = lis.count(col)
@@ -102,7 +91,7 @@ def score_of_list(lis,col):
 def row_to_list(board,y,x,dy,dx,yf,xf):
     '''
     trả về list của y,x từ yf,xf
-    return the list expression of the y,x to yf, xf (inclusive)
+    
     '''
     row = []
     while y != yf + dy or x !=xf + dx:
@@ -114,7 +103,7 @@ def row_to_list(board,y,x,dy,dx,yf,xf):
 def score_of_row(board,cordi,dy,dx,cordf,col):
     '''
     trả về một list với mỗi phần tử đại diện cho số điểm của 5 khối
-    return a list, with each element representing the score of one 5 block units. e.g [1,2,2,3,4] means there are one 1's, two 2's, one 3 and one 4, in the direction dy,dx
+
     '''
     colscores = []
     y,x = cordi
@@ -128,10 +117,11 @@ def score_of_row(board,cordi,dy,dx,cordf,col):
 
 def score_of_col(board,col):
     '''
-    pretty much like detect_rows, calculate the scores of lists for each direction for col, used for is_win only. for one step, use score_of_col_one
+    tính toán điểm số mỗi hướng của column dùng cho is_win;
     '''
 
     f = len(board)
+    #scores của 4 hướng đi
     scores = {(0,1):[],(-1,1):[],(1,0):[],(1,1):[]}
     for start in range(len(board)):
         scores[(0,1)].extend(score_of_row(board,(start, 0), 0, 1,(start,f-1), col))
@@ -147,8 +137,8 @@ def score_of_col(board,col):
     
 def score_of_col_one(board,col,y,x):
     '''
-    return the score dictionary for col in y,x in 4 directions. key: score of the 5 unit blocks, value:number of such 5 unit blocks
-    improvement: only check 5 blocks away instead of whole row
+    trả lại điểm số của column trong y,x theo 4 hướng,
+    key: điểm số khối đơn vị đó -> chỉ ktra 5 khôi thay vì toàn bộ
     '''
     
     scores = {(0,1):[],(-1,1):[],(1,0):[],(1,1):[]}
@@ -166,9 +156,7 @@ def score_of_col_one(board,col,y,x):
 def possible_moves(board):
     '''
     khởi tạo danh sách tọa độ có thể có tại danh giới các nơi đã đánh phạm vi 3 đơn vị
-    return a list of possible coordinates at the boundary of existing stones off-set by 3 units
     '''
-    #l = len(board)
     #mảng taken lưu giá trị của người chơi và của máy trên bàn cờ
     taken = []
     # mảng directions lưu hướng đi (8 hướng)
@@ -195,7 +183,7 @@ def possible_moves(board):
     
 def TF34score(score3,score4):
     '''
-    return if a certain 3+4 case is winnable
+    trả lại trường hợp chắc chắn có thể thắng(4 ô liên tiếp)
     '''
     for key4 in score4:
         if score4[key4] >=1:
@@ -206,15 +194,15 @@ def TF34score(score3,score4):
     
 def stupid_score(board,col,anticol,y,x):
     '''
-    attempt to move y,x for both col
-    return the advantage of col if put on y,x + the advantage of anticol if put on y,x
+    cố gắng di chuyển y,x
+    trả về điểm số tượng trưng lợi thế 
     '''
     
     global colors
     M = 1000
     res,adv, dis = 0, 0, 0
     
-    #offense
+    #tấn công
     board[y][x]=col
     #draw_stone(x,y,colors[col])
     sumcol = score_of_col_one(board,col,y,x)       
@@ -222,15 +210,11 @@ def stupid_score(board,col,anticol,y,x):
     adv += a * M
     sum_sumcol_values(sumcol)
     #{0: 0, 1: 15, 2: 0, 3: 0, 4: 0, 5: 0, -1: 0}
-    #print (sumcol)
     adv +=  sumcol[-1] + sumcol[1] + 4*sumcol[2] + 8*sumcol[3] + 16*sumcol[4]
     
-    #defense
+    #phòng thủ
     board[y][x]=anticol
-    #draw_stone(x,y,colors[anticol])
     sumanticol = score_of_col_one(board,anticol,y,x)  
-    #board[y][x]=col
-    #draw_stone(x,y,colors[col])
     d = winning_situation(sumanticol)
     dis += d * (M-100)
     sum_sumcol_values(sumanticol)
@@ -238,14 +222,12 @@ def stupid_score(board,col,anticol,y,x):
 
     res = adv + dis
     
-    #remove_stone(x,y)
     board[y][x]=' '
     return res
     
 def winning_situation(sumcol):
     '''
-    return the kind of winning situation sumcol is in
-    sumcol looks like:
+    trả lại tình huống chiến thắng dạng như:
     {0: {}, 1: {(0, 1): 4, (-1, 1): 3, (1, 0): 4, (1, 1): 4}, 2: {}, 3: {}, 4: {}, 5: {}, -1: {}}
     '''
     
@@ -264,8 +246,6 @@ def winning_situation(sumcol):
 def best_move(board,col):
     '''
     trả lại điểm số của mảng trong lợi thế của từng màu
-    return the score of the board in advantage of the color col
-    the more low step to fives, the better. the higher the score the better
     '''
     if col == 'w':
         anticol = 'b'
@@ -302,11 +282,11 @@ def click(x,y):
     
     if x == -1 and y == -1 and len(move_history) != 0:
         x, y = move_history[-1]
-        remove_stone(x, y)
+     
         del(move_history[-1])
         board[y][x] = " "
         x, y = move_history[-1]
-        remove_stone(x, y)
+       
         del(move_history[-1])
         board[y][x] = " "
         return
@@ -327,7 +307,7 @@ def click(x,y):
             win = True
             return
             
-            #screen.bye()
+          
             
         ay,ax = best_move(board,'w')
         draw_stone(ax,ay,colors['w'])
@@ -341,12 +321,12 @@ def click(x,y):
             win = True
             return
             
-            #screen.bye()
+          
         
     
 def initialize(size):
     
-    global win,board,screen,colors, move_history#,border
+    global win,board,screen,colors, move_history
     
     move_history = []
     win = False
@@ -362,7 +342,7 @@ def initialize(size):
     colors = {'w':turtle.Turtle(),'b':turtle.Turtle(), 'g':turtle.Turtle()}
     colors['w'].color('white')
     colors['b'].color('black')
-    colors['g'].color('green')
+  
     for key in colors:
         colors[key].ht()
         colors[key].penup()
@@ -376,10 +356,10 @@ def initialize(size):
     
     i=-1
     for start in range(size):
-        border.goto(start,side + side *i)     #z-shaped drawing for optimum speed
+        border.goto(start,side + side *i)    
         border.pendown()
         i*=-1
-        border.goto(start,side + side *i)     #(side + side *i) alternates between 0 and size-1
+        border.goto(start,side + side *i)     
         border.penup()
         
     i=1
@@ -392,16 +372,14 @@ def initialize(size):
         
     border.ht()
     
-    # undo button
 
-    draw_stone(-1,-1,colors['g'])
     
     screen.listen()
     screen.mainloop()
     
 def getindexposition(x,y):
     '''
-    return the index position of the board in list form
+    lấy index
     '''
     intx,inty = int(x),int(y)
     dx,dy = x-intx,y-inty
@@ -418,26 +396,7 @@ def getindexposition(x,y):
     else:
         y = inty
     return x,y
-''' 
-def remove_stone(x,y):
-    global screen
-    
-    eraser = turtle.Turtle()
-    eraser.penup()
-    eraser.speed(0)
-    eraser.ht()
-    
-    eraser.color(screen.bgcolor())
-    draw_stone(x,y,eraser)
-    eraser.color('black')
-    eraser.pendown()
-    eraser.goto(x,y+0.4)
-    eraser.penup()
-    eraser.goto(x-0.3,y)
-    eraser.pendown()
-    eraser.goto(x+0.4,y)
-    eraser.penup()
-    '''
+
 def draw_stone(x,y,colturtle):
     colturtle.goto(x,y-0.3)
     colturtle.pendown()
