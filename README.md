@@ -4,6 +4,19 @@ Chươnng trình game caro sử dụng  Turtle trong python và engine AI dựa 
 
 **Thuật toán**
 
+- Phân tích: 
+   +Trò chơi có thể biếu diễn như một cây gốc, những nút, những lá và nhánh:
+   	> Gốc là trạng thái ban đầu của trò chơi. Với mỗi trò chơi cụ thể thì trạng thái( ở mỗi điểm) lại đưuọc đặc trung bởi những     	thông số riêng
+	> Các nút(Node) của cây thể hiện tình trạng hiện tại của trò chơi, gồm nút cha và nút con.
+	> Các nhánh nối giữa các nút thể hiện nước đi, tức là cho biết từ một tình huống của trò chơi chuyển sang tình huống khác thông 	qua chỉ một nước đi nào đó.
+	> Các lá hay còn gọi là nút lá, thể hiện thời điểm kết thúc khi mà kết quả của trờ chơi đã rõ.
+	> Độ sâu của cây: Số tầng của cây
+   + Mỗi vị trí kết thúc trò chơi(nút lá) sẽ gán một trọng số. vd: 1 win, 0 hòa, -1 lose. Tại mỗi nút cũng có một trọng số tương ứng được xác định bằng một cách nào đó. Dựa vào cây trò chơi này, ta có thể tìm nước đi tốt để giành chiến thắng.
+	
+   + Cứ sau mỗi nước đi số ô trống sẽ giảm. Vì vậy việc tìm kiếm nước đi tiếp theo là việc tìm kiếm trong không gian các ô trống còn lại, sau mỗi lượt đi thì không gian tìm kiếm sẽ giảm dần.
+   Chiến lược tìm kiếm nước đi là chọn 1 nút trên cây sao cho nước đi là tốt. Và để đánh giá được nút đó thì phải nhìn đến độ sâu của cây. Vì không gian tìm kiếm là quá lớn nên chúng ta giới hạn cho máy tính chỉ tìm kiếm ở một độ sâu nhất định 
+   ==> Chương trình có độ sâu càng lớn thì càng chơi giỏi nhưng sẽ phải trả giá về mặt thời gian
+
 1.Thuật toán Minimax
 
 - Minimax là một thuật toán đệ quy lựa chọn bước đi kế tiếp trong một trò chơi 2 người bằng cách tính các giá trị cho các Node trên cây trò chơi sau đó tìm Node có giá trị phù hợp để đi bước tiếp theo.
