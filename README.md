@@ -28,5 +28,5 @@ Từ các giá trị này người chơi sẽ lựa chọn cho mình nước đi
 		 + Dùng hai cận Anpha và Beta để so sánh và loại bỏ các trường hợp sẽ không cần xét đến trong thuật toán minimax.	
 
 - Mô tả: + Anpha lưu nướcc đi tốt nhất của máy, Beta lưu giá trị tốt nhất của Người chơi
-	   + Nếu bất cứ khi nào anpha >= beta, thì người chơi chắc chắn sẽ chọn nước đi tốt nhất cho họ và cưỡng bức nước đi tồi hơn anpha cho máy, vì vậy mà không cần xét thêm bước nào nữa.
+	  + Nếu bất cứ khi nào anpha >= beta, thì người chơi chắc chắn sẽ chọn nước đi tốt nhất cho họ và cưỡng bức nước đi tồi hơn anpha cho máy, vì vậy mà không cần xét thêm bước nào nữa.
 
